@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.ComponentModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,7 +15,7 @@ namespace WpfAppBindings
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private int _member;
 
@@ -29,12 +30,22 @@ namespace WpfAppBindings
 
         public int MyProperty { 
             get { return _member; } 
-            set { _member = value; } 
+            set { 
+                _member = value;
+                OnPropertyChanged(nameof(MyProperty));
+            } 
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _member++;
+            MyProperty++;
         }
     }
 }
