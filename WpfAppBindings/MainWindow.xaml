@@ -8,9 +8,14 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <StackPanel>
-            <Button Height="100" Content="HitMe"
-                    Click="Button_Click"></Button>
-            <Label x:Name="lblContent" Content="{Binding MyProperty}"></Label>
+            <Button Height="100"
+                    Margin="10"
+                    Content="HitMe"
+                    Click="Button_Click" />
+            <Label x:Name="lblContent" Content="{Binding MyProperty}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="36"></Label>
         </StackPanel>
         
     </Grid>

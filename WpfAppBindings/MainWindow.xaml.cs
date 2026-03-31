@@ -9,43 +9,32 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfAppBindings.Viewmodel;
 
 namespace WpfAppBindings
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
-        private int _member;
 
+        // We maken een instantie van het MainViewmodel aan,
+        // zodat we deze kunnen gebruiken als DataContext voor onze MainWindow.
+        private MainViewmodel _mainViewmodel = new MainViewmodel();
         public MainWindow()
         {
             InitializeComponent();
-            //lblContent.Content = "Hello World!";
-            this.DataContext = this;
-            MyProperty = 100;
+            // Koppel het viewmodel aan de DataContext van de MainWindow, zodat we de properties van het viewmodel kunnen binden aan de UI-elementen in de XAML.
+            this.DataContext = _mainViewmodel;
         }
 
-
-        public int MyProperty { 
-            get { return _member; } 
-            set { 
-                _member = value;
-                OnPropertyChanged(nameof(MyProperty));
-            } 
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MyProperty++;
+            // Wanneer de button wordt geklikt, verhogen we de waarde van MyProperty in het viewmodel.
+            // Door de binding in de XAML zal de UI automatisch worden bijgewerkt met de nieuwe waarde van MyProperty.
+            _mainViewmodel.MyProperty++;
         }
     }
 }
