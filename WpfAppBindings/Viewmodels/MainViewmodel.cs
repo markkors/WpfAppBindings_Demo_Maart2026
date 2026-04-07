@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,6 +39,27 @@ namespace WpfAppBindings.Viewmodel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+
+        // get Persons from REST API
+        // public ObservableCollection<Person> Persons { get; set; }
+
+        public void getPerson()
+        {
+            // call rest API
+            // to get person data and populate the Persons collection
+            using (var client = new HttpClient())
+            {
+                var response = client.GetAsync("http://localhost:8888/api/person").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = response.Content.ReadAsStringAsync().Result;
+                    // Deserialize json to ObservableCollection<Person> and assign to Persons property
+                    // Persons = JsonConvert.DeserializeObject<ObservableCollection<Person>>(json);
+                }
+            }
+
+        }
 
     }
 
