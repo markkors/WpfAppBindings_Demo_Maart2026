@@ -11,6 +11,7 @@
             <Button Height="100" Content="HitMe"
                     Click="Button_Click"></Button>
             <Label x:Name="lblContent" Content="{Binding MyProperty}"></Label>
+            <Label x:Name="lblScore" Content="{Binding Score}"></Label>
         </StackPanel>
         
     </Grid>
