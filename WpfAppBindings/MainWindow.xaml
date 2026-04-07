@@ -12,11 +12,36 @@
                     Margin="10"
                     Content="HitMe"
                     Click="Button_Click" />
-            <Label x:Name="lblContent" Content="{Binding MyProperty}"
+            <Label x:Name="lblContent" Content="{Binding PersonsLoaded, FallbackValue=0}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="36"></Label>
         </StackPanel>
-        
+
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Margin="10">
+
+            <ComboBox x:Name="cbxPersons"
+                      Width="200"
+                      Margin="10"
+                      DisplayMemberPath="name"
+                      SelectedValuePath="id"
+                      ItemsSource="{Binding Persons}"
+                      SelectedItem="{Binding SelectedPerson}"/>
+
+            
+            <Label Content="{Binding SelectedPerson.name}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="24" />
+            <Label Content="{Binding SelectedPerson.age}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="24" />
+        </StackPanel>
+
+
     </Grid>
 </Window>

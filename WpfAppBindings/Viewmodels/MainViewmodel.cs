@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using WpfAppBindings.models;
 
 namespace WpfAppBindings.Viewmodel
 {
@@ -14,15 +17,27 @@ namespace WpfAppBindings.Viewmodel
         // Een viewmodel bevat de logica en de data die de view nodig heeft om correct te functioneren.
         // In dit geval hebben we een eenvoudige property genaamd MyProperty die we willen 'binden' aan een element in de UI, zoals een TextBlock of een Label.
 
-        private int _member;
+        private int _personsloaded;
+        private ObservableCollection<Person> _persons;
+        private Person _selectedperson;
 
-        public int MyProperty
+        // constructor
+        public MainViewmodel()
         {
-            get { return _member; }
+            _personsloaded = 0;
+            _persons = new ObservableCollection<Person>();
+            // inladen van personen bij het aanmaken van het viewmodel
+            getPersons();
+        }
+
+
+        public int PersonsLoaded
+        {
+            get { return _personsloaded; }
             set
             {
-                _member = value;
-                OnPropertyChanged(nameof(MyProperty));
+                _personsloaded = value;
+                OnPropertyChanged(nameof(PersonsLoaded));
             }
         }
 
@@ -32,7 +47,7 @@ namespace WpfAppBindings.Viewmodel
         // De INotifyPropertyChanged interface is essentieel voor data binding in WPF.
         // Zonder deze interface zou de UI niet weten wanneer een property in het viewmodel is gewijzigd, en zou dus niet automatisch worden bijgewerkt.
         // Wanneer een property in het viewmodel wordt gewijzigd, roept de setter van die property de OnPropertyChanged methode aan, die op zijn beurt het PropertyChanged event triggert.
-        
+
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
@@ -42,21 +57,61 @@ namespace WpfAppBindings.Viewmodel
 
 
         // get Persons from REST API
-        // public ObservableCollection<Person> Persons { get; set; }
+        public ObservableCollection<models.Person> Persons
+        {
+            get { return _persons; }
+            set
+            {
+                _persons = value;
+                OnPropertyChanged(nameof(Persons));
+            }
+        }
 
-        public void getPerson()
+
+        public Person SelectedPerson { 
+            get { return _selectedperson; } 
+            set { 
+                _selectedperson = value; 
+                OnPropertyChanged(nameof(SelectedPerson));
+            }
+        }
+
+        public void getPersons()
         {
             // call rest API
             // to get person data and populate the Persons collection
             using (var client = new HttpClient())
             {
-                var response = client.GetAsync("http://localhost:8888/api/person").Result;
-                if (response.IsSuccessStatusCode)
+
+                try
                 {
-                    var json = response.Content.ReadAsStringAsync().Result;
-                    // Deserialize json to ObservableCollection<Person> and assign to Persons property
-                    // Persons = JsonConvert.DeserializeObject<ObservableCollection<Person>>(json);
+                    var response = client.GetAsync("http://localhost:8888/api/person").Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json = response.Content.ReadAsStringAsync().Result;
+                        // Deserialize json to ObservableCollection<Person> and assign to Persons property
+
+                        // Om JSONConvert te laten werken, moeten we de Newtonsoft.Json package installeren via NuGet Package Manager.
+                        Persons = JsonConvert.DeserializeObject<ObservableCollection<models.Person>>(json);
+
+                    }
                 }
+                catch (Exception ex)
+                {
+                    // Handle exceptions (e.g., network errors, JSON parsing errors)
+                    Console.WriteLine($"Error fetching persons: {ex.Message}");
+                    // create dummy data for testing purposes
+                    Persons = new ObservableCollection<models.Person>
+                    {
+                        new models.Person(1, "John Doe", 30),
+                        new models.Person(2, "Jane Smith", 25),
+                        new models.Person(3, "Bob Johnson", 40)
+                    };
+                }
+                PersonsLoaded = Persons.Count;
+
+
+
             }
 
         }
