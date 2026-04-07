@@ -35,6 +35,7 @@ namespace WpfAppBindings
             // Wanneer de button wordt geklikt, verhogen we de waarde van MyProperty in het viewmodel.
             // Door de binding in de XAML zal de UI automatisch worden bijgewerkt met de nieuwe waarde van MyProperty.
             _mainViewmodel.MyProperty++;
+            _mainViewmodel.getPerson();
         }
     }
 }
