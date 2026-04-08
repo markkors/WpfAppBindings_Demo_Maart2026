@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WpfAppBindings.models;
 
-#nullable disable
+#nullable enable
 
 namespace WpfAppBindings.Viewmodel
 {
@@ -19,9 +19,9 @@ namespace WpfAppBindings.Viewmodel
         // Een viewmodel bevat de logica en de data die de view nodig heeft om correct te functioneren.
         // In dit geval hebben we een eenvoudige property genaamd MyProperty die we willen 'binden' aan een element in de UI, zoals een TextBlock of een Label.
 
-        private int _personsloaded;
-        private ObservableCollection<Person> _persons;
-        private Person _selectedperson;
+        private int? _personsloaded;
+        private ObservableCollection<Person>? _persons;
+        private Person? _selectedperson;
 
         // constructor
         public MainViewmodel()
@@ -33,7 +33,7 @@ namespace WpfAppBindings.Viewmodel
         }
 
 
-        public int PersonsLoaded
+        public int? PersonsLoaded
         {
             get { return _personsloaded; }
             set
@@ -59,7 +59,7 @@ namespace WpfAppBindings.Viewmodel
 
 
         // get Persons from REST API
-        public ObservableCollection<models.Person> Persons
+        public ObservableCollection<models.Person>? Persons
         {
             get { return _persons; }
             set
@@ -70,7 +70,7 @@ namespace WpfAppBindings.Viewmodel
         }
 
 
-        public Person SelectedPerson { 
+        public Person? SelectedPerson { 
             get { return _selectedperson; } 
             set { 
                 _selectedperson = value; 
