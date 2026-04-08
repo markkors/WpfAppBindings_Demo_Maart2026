@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using WpfAppBindings.models;
 
+#nullable disable
+
 namespace WpfAppBindings.Viewmodel
 {
     public class MainViewmodel : INotifyPropertyChanged
