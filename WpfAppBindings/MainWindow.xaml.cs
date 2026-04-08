@@ -32,8 +32,13 @@ namespace WpfAppBindings
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // Wanneer de button wordt geklikt, verhogen we de waarde van MyProperty in het viewmodel.
-            // Door de binding in de XAML zal de UI automatisch worden bijgewerkt met de nieuwe waarde van MyProperty.
+            // Wanneer de button wordt geklikt, halen we de personen op via de getPersons() methode van het MainViewmodel. 
+            // Door de binding in de XAML zal de UI automatisch worden bijgewerkt.
+            // Er vinden diverse automatische updates plaats dankzij de data binding en de implementatie van INotifyPropertyChanged in het viewmodel.
+
+            // Let hierbij vooral op de Combobox, deze is gebonden aan de Persons property van het viewmodel, en zal automatisch de lijst van personen tonen zodra deze is opgehaald.
+            // In het viewmodel wordt de PersonsLoaded property direct bijgewerkt, wat ook automatisch wordt weergegeven in de UI dankzij de binding.
+            // De selectedperson property in het viewmodel wordt ook automatisch bijgewerkt wanneer de gebruiker een persoon selecteert in de combo box, dankzij de TwoWay binding.
             _mainViewmodel.getPersons();
         }
     }
