@@ -56,11 +56,18 @@ WpfAppBindings/
 
 Verplaats `MainWindow.xaml` (en `MainWindow.xaml.cs`) naar de map `views/`.
 
-> **Let op:** na het verplaatsen moet je in `MainWindow.xaml` de namespace aanpassen:
+> **Let op:** na het verplaatsen moet je twee dingen aanpassen:
+>
+> 1. In `MainWindow.xaml` blijft de namespace gelijk (de map heeft geen invloed op de namespace):
 > ```xml
 > x:Class="WpfAppBindings.MainWindow"
 > ```
-> Dit blijft hetzelfde omdat de namespace van het project niet verandert.
+>
+> 2. In `App.xaml` moet de `StartupUri` worden bijgewerkt zodat WPF het venster kan vinden:
+> ```xml
+> StartupUri="views/MainWindow.xaml"
+> ```
+> Zonder deze aanpassing start de applicatie niet op.
 
 ---
 
