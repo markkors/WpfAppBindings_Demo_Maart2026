@@ -30,7 +30,7 @@ namespace WpfAppBindings
         }
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Getpersons_Click(object sender, RoutedEventArgs e)
         {
             // Wanneer de button wordt geklikt, halen we de personen op via de getPersons() methode van het MainViewmodel. 
             // Door de binding in de XAML zal de UI automatisch worden bijgewerkt.
@@ -40,6 +40,11 @@ namespace WpfAppBindings
             // In het viewmodel wordt de PersonsLoaded property direct bijgewerkt, wat ook automatisch wordt weergegeven in de UI dankzij de binding.
             // De selectedperson property in het viewmodel wordt ook automatisch bijgewerkt wanneer de gebruiker een persoon selecteert in de combo box, dankzij de TwoWay binding.
             _mainViewmodel.getPersons();
+        }
+
+        private void Addpersons_Click(object sender, RoutedEventArgs e)
+        {
+            _mainViewmodel.addPerson(new models.Person { name = "New Person Test", age = 30 });
         }
     }
 }

@@ -10,12 +10,16 @@
         <StackPanel>
             <Button Height="100"
                     Margin="10"
-                    Content="HitMe"
-                    Click="Button_Click" />
+                    Content="Get Persons"
+                    Click="Getpersons_Click" />
             <Label x:Name="lblContent" Content="{Binding PersonsLoaded, FallbackValue=0}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="36"></Label>
+            <Button Height="100"
+                    Margin="10"
+                    Content="Add Persons"
+                    Click="Addpersons_Click" />
         </StackPanel>
 
         <StackPanel Orientation="Vertical"
