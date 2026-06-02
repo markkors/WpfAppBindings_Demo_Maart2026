@@ -22,6 +22,7 @@ namespace WpfAppBindings.Viewmodel
         private int? _personsloaded;
         private ObservableCollection<Person>? _persons;
         private Person? _selectedperson;
+        private int _weight;
 
         // constructor
         public MainViewmodel()
@@ -30,6 +31,14 @@ namespace WpfAppBindings.Viewmodel
             _persons = new ObservableCollection<Person>();
             // inladen van personen bij het aanmaken van het viewmodel
             getPersons();
+        }
+
+
+        public int Weight
+        {
+            get { return _weight; }
+
+            set { _weight = value; }
         }
 
 

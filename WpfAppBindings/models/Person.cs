@@ -9,20 +9,24 @@ namespace WpfAppBindings.models
     public class Person
     {
         int _id;
+        string _name;
+        int _age;
+
+
         public int id
         {
             get { return _id; }
             set { _id = value; }
         }
 
-        string _name;
+      
         public string name
         {
             get { return _name; }
             set { _name = value; }
         }
 
-        int _age;
+        
         public int age
         {
             get { return _age; }

@@ -27,6 +27,7 @@ namespace WpfAppBindings
             InitializeComponent();
             // Koppel het viewmodel aan de DataContext van de MainWindow, zodat we de properties van het viewmodel kunnen binden aan de UI-elementen in de XAML.
             this.DataContext = _mainViewmodel;
+            
         }
 
 
